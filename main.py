@@ -407,7 +407,7 @@ def get_message_data(message):
         'message_dir': message_dir,
         'date': current_date.strftime("%d/%m/%Y") if current_date else None,
         'time': time,
-        'datetime': dt.strftime("%d/%m/%Y %H:%M:%S") if dt else None
+        'datetime': dt.strftime("%d/%m/%Y %H:%M") if dt else None
     }
 
     if message_type == 'Video and text together':
@@ -485,7 +485,7 @@ def search_messages(last_saved_message=None, keyword=None, date_range=None, star
     last_message_datetime = None
     if last_saved_message:
         last_message_text = last_saved_message['text']
-        last_message_datetime = datetime.datetime.strptime(last_saved_message['date'] + ' ' + last_saved_message['time'], '%d/%m/%Y %H:%M:%S')
+        last_message_datetime = datetime.datetime.strptime(last_saved_message['date'] + ' ' + last_saved_message['time'], '%d/%m/%Y %H:%M')
     else:
         if not start_date:
             start_date = datetime.datetime.today() - datetime.timedelta(days=DEFAULT_MONTHS_TO_EXTRACT * 30)
@@ -502,7 +502,7 @@ def search_messages(last_saved_message=None, keyword=None, date_range=None, star
             continue
 
         if start_date:
-            message_datetime = datetime.datetime.strptime(message_data['datetime'], '%d/%m/%Y %H:%M:%S')
+            message_datetime = datetime.datetime.strptime(message_data['datetime'], '%d/%m/%Y %H:%M')
             if message_datetime < start_date:
                 continue
 
